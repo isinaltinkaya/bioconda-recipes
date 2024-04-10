@@ -1,0 +1,51 @@
+{% set version = "1.0.0" %}
+{% set sha256 = "4384f017ef7ac176c756233205dec2a02c0b0eaa97ff5a32fe31089e72cb4b14" %}
+
+package:
+  name: vcfgl
+  version: v{{ version }}
+
+source:
+  url: https://github.com/isinaltinkaya/vcfgl/releases/download/{{ version}}/vcfgl-v{{ version }}.tar.gz
+  sha256: {{ sha256 }}
+
+build:
+  number: 3
+
+requirements:
+  build:
+    - make
+    - {{ compiler('cxx') }}
+    - {{ compiler('c') }}
+  host:
+    - htslib
+    - zlib
+    - bzip2
+    - xz
+  run:
+    - htslib
+    - zlib
+    - bzip2
+    - xz
+
+test:
+  commands:
+    - vcfgl
+    - vcfgl --help
+    - vcfgl --version
+
+about:
+  home: https://github.com/isinaltinkaya/vcfgl
+  license: GPLv3 
+  license_file: LICENSE
+  summary: "Genotype likelihood simulator for VCF/BCF files"
+
+extra:
+  identifiers:
+    - biotools:vcfgl
+    - doi:10.1101/2024.04.09.586324
+  additional-platforms:
+    - linux-aarch64
+  recipe-maintainers:
+    - isinaltinkaya
+
